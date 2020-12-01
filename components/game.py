@@ -1,4 +1,5 @@
 import pygame
+
 from components.ball import Ball
 from components.player import Player
 from utils.constants import (
@@ -15,6 +16,7 @@ class Game:
         self.screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
         self.clock = pygame.time.Clock()
 
+
     def run(self):
         self.create_components()
         #Game loop:
@@ -29,12 +31,15 @@ class Game:
 
     def create_components(self):
         self.all_sprites = pygame.sprite.Group()
-        player = Player()
-        self.all_sprites.add(player)
+        self.player = Player(self)
+        self.all_sprites.add(self.player)
 
         balls = pygame.sprite.Group()
         ball = Ball()
         self.all_sprites.add(ball)
+
+
+
 
 
     def update(self):
@@ -45,6 +50,10 @@ class Game:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 self.playing = False
+            elif event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_SPACE:
+                    self.player.shoot()
+
 
 
     def draw(self):
