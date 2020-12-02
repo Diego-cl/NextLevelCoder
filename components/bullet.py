@@ -1,8 +1,6 @@
 import pygame
 from utils.constants import (
     RED,
-    SCREEN_HEIGHT,
-    SCREEN_WIDTH
 
 )
 class Bullet(pygame.sprite.Sprite):
@@ -13,12 +11,11 @@ class Bullet(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.rect.bottom = y
         self.rect.centerx = x
-        self.speedy = -5
+        self.speedy = -10
 
 
     def update(self):
         self.rect.y += self.speedy
-
 
         if self.rect.bottom < 0:
             self.kill()
