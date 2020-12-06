@@ -7,31 +7,12 @@ from utils.constants import (
     SCREEN_HEIGHT,
     SCREEN_WIDTH,
     TITLE,
-    IMG_DIR,
-    WHITE,
-    GREEN
+    IMG_DIR
 )
 from os import path
 from utils.text_utils import draw_text
-
-def dr_text(surface, text, size, x, y):
-    font = pygame.font.SysFont("serif", size)
-    text_surface = font.render(text, True, WHITE)
-    text_rect = text_surface.get_rect()
-    text_rect.midtop = (x, y)
-    surface.blit(text_surface, text_rect)
-
-
-def draw_hp(surface, x, y, percentage):
-    BAR_LENGHT = 100
-    BAR_HEIGHT = 10
-    fill = (percentage / 100) * BAR_LENGHT
-    borde = pygame.Rect(x, y, BAR_LENGHT, BAR_HEIGHT)
-    fill = pygame.Rect(x, y, fill, BAR_HEIGHT)
-    pygame.draw.rect(surface, GREEN, fill)
-    pygame.draw.rect(surface, WHITE, borde, 4)
-
-
+from utils.te_utils import dr_text
+from utils.tex_hp import draw_hp
 class Game:
     def __init__(self):
         pygame.init()
@@ -81,11 +62,15 @@ class Game:
 
     def update(self):
         self.all_sprites.update()
-        hits = pygame.sprite.spritecollide(self.player, self.balls, False)
+        hits = pygame.sprite.spritecollide(self.player, self.balls, True)
         for hit in hits:
+            self.score -= 5
+            if self.score <= 0:
+                self.score = 0
             self.hp -= 25
             if self.hp <= 0:
                 self.playing = False
+
         hits = pygame.sprite.groupcollide(self.balls, self.player.bullets, True, True)
 
         for hit in hits:
