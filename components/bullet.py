@@ -1,15 +1,15 @@
 import pygame
+
 from utils.constants import (
     BLACK,
     IMG_DIR
-
 )
 from os import path
 class Bullet(pygame.sprite.Sprite):
     def __init__(self, x, y):
         pygame.sprite.Sprite.__init__(self)
         self.image = pygame.image.load(path.join(IMG_DIR, "bullet.png")).convert()
-        self.image = pygame.transform.scale(self.image, (10,10))
+        self.image = pygame.transform.scale(self.image, (10, 10))
         self.image.set_colorkey(BLACK)
         self.rect = self.image.get_rect()
         self.rect.bottom = y
@@ -19,6 +19,8 @@ class Bullet(pygame.sprite.Sprite):
 
     def update(self):
         self.rect.y += self.speedy
-
         if self.rect.bottom < 0:
             self.kill()
+
+
+

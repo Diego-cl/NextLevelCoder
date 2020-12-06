@@ -1,6 +1,5 @@
 import pygame
 
-
 import random
 from utils.constants import (
 
